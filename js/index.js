@@ -6,7 +6,7 @@ var state = immutable.fromJS({
   todos: [
     {id: 1, description: 'A todo', completed: true},
     {id: 2, description: 'Another todo', editing: true},
-    {id: 3, description: 'Yet another todo', selected: true},
+    {id: 3, description: 'Yet another todo'},
   ]
 });
 
@@ -34,12 +34,12 @@ var TodoRow = React.createClass({
     var todo = this.props.todo.toObject();
     var cx = React.addons.classSet;
     var classes = cx({
-      'completed': todo.complete,
+      'completed': todo.completed,
         'editing': todo.editing
     });
     return D.li({className: classes},
       D.div({className: 'view'},
-        D.input({className: 'toggle', type: 'checkbox', checked: todo.selected, onChange: this.handleCheck}),
+        D.input({className: 'toggle', type: 'checkbox', checked: todo.completed, onChange: this.handleCheck}),
         D.label({onClick: this.handleClick}, todo.description),
         D.button({className: 'destroy', onClick: this.handleDestroy})
       ),
@@ -57,7 +57,7 @@ var TodoRow = React.createClass({
 
   handleCheck: function() {
     this.props.todo.update(function(todo) {
-      return todo.set('selected', !todo.get('selected'));
+      return todo.set('completed', !todo.get('completed'));
     });
   },
 

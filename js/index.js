@@ -32,7 +32,12 @@ var Header = React.createClass({
 var TodoRow = React.createClass({
   render: function() {
     var todo = this.props.todo.toObject();
-    return D.li({className: todo.complete ? 'completed' : todo.editing ? 'editing' : ''},
+    var cx = React.addons.classSet;
+    var classes = cx({
+      'completed': todo.complete,
+        'editing': todo.editing
+    });
+    return D.li({className: classes},
       D.div({className: 'view'},
         D.input({className: 'toggle', type: 'checkbox', checked: todo.selected, onChange: this.handleCheck}),
         D.label({onClick: this.handleClick}, todo.description),

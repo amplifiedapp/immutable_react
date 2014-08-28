@@ -1,0 +1,26 @@
+{
+  "name": "todo_mvc_immutable_react",
+  "version": "0.0.1",
+  "description": "Todo MVC with Immutable and React",
+  "main": "index.js",
+  "dependencies": {
+    "immutable": "~2.0.16",
+    "react": "~0.11.1"
+  },
+  "devDependencies": {
+    "browserify": "~5.10.1",
+    "gulp": "~3.8.7",
+    "watchify": "~1.0.2",
+    "gulp-util": "~3.0.0",
+    "glob": "~4.0.5",
+    "vinyl-source-stream": "~0.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Leonardo Garcia Crespo",
+    "email": "leoasis@gmail.com"
+  },
+  "license": "MIT"
+}

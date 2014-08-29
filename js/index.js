@@ -139,7 +139,7 @@ var states = [];
 function render(state) {
   states.push(state);
   var component = TodosApp({
-    todos: state.cursor('todos', render)
+    todos: state.cursor(render).get('todos')
   });
   React.renderComponent(component, root);
 }

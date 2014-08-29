@@ -101,7 +101,7 @@ var Main = React.createClass({
 
   handleDestroy: function(todo) {
     this.props.todos.update(function(todos) {
-      return todos.remove(todos.indexOf(todo));
+      return todos.filter(function(item) {return !item.equals(todo)}).toVector();
     })
   }
 });

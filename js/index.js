@@ -88,7 +88,7 @@ var Main = React.createClass({
     var todoRows = todos.map(function(todo, index) {
       return TodoRow({
         key: todo.get('id'),
-        todo: todos.cursor(index),
+        todo: todo,
         onDestroy: this.handleDestroy
       });
     }.bind(this));

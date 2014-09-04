@@ -12,14 +12,27 @@ module.exports = React.createClass({
     return D.li({className: classes},
       D.div({className: 'view'},
         D.input({className: 'toggle', type: 'checkbox', checked: todo.completed, onChange: this.handleCheck}),
-        D.label({onClick: this.handleClick}, todo.description),
+        D.label({onDoubleClick: this.handleDoubleClick}, todo.description),
         D.button({className: 'destroy', onClick: this.handleDestroy})
       ),
-      D.input({className: 'edit', value: todo.description, onChange: this.handleChange, onKeyPress: this.handleKeyPress})
+      D.input({
+        className: 'edit',
+        ref: 'editInput',
+        value: todo.description,
+        onChange: this.handleChange,
+        onKeyPress: this.handleKeyPress,
+        onBlur: this.handleBlur})
     );
   },
 
-  handleClick: function() {
+  componentDidUpdate: function(prevProps, prevState) {
+    // Set focus when going from not editing to editing
+    if (this.props.todo.get('editing') && !prevProps.todo.get('editing')) {
+      this.refs.editInput.getDOMNode().focus();
+    }
+  },
+
+  handleDoubleClick: function() {
     if (!this.props.todo.get('editing')) {
       this.props.todo.update(function(todo) {
         return todo.set('editing', true);
@@ -51,5 +64,11 @@ module.exports = React.createClass({
         return todo.set('editing', false);
       });
     }
+  },
+
+  handleBlur: function() {
+    this.props.todo.update(function(todo) {
+      return todo.set('editing', false);
+    });
   }
 });

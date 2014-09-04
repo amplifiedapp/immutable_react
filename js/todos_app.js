@@ -24,7 +24,7 @@ module.exports = React.createClass({
   },
 
   nextId: function() {
-    this.props.state.get('todos').reduce(function(maxId, todo) {
+    return this.props.state.get('todos').reduce(function(maxId, todo) {
       return Math.max(maxId, todo.get('id'));
     }, 0) + 1;
   }

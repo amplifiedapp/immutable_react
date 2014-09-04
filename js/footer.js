@@ -36,9 +36,9 @@ module.exports = React.createClass({
 
   handleClearCompleted: function() {
     this.props.state.get('todos').update(function(todos) {
-      return todos.map(function(todo) {
-        return todo.set('completed', false);
-      });
+      return todos.filter(function(todo) {
+        return !todo.get('completed');
+      }).toVector();
     });
   },
 

@@ -18,7 +18,7 @@ gulp.task('default', function() {
   var bundler = watchify(bundler);
 
   // To support React Dev Tools, we need React to be requireable
-  bundler.require('react');
+  // bundler.require('react');
 
   bundler.on('update', rebundle);
   bundler.on('log', gutil.log);

@@ -1,33 +1,17 @@
-var React = require('react/addons');
+var React = require('react');
+var Router = require('react-router');
+var Routes = Router.Routes,
+    Route = Router.Route;
 
-var immutable = require('immutable');
 var TodosApp = require('./todos_app');
 
-var state = immutable.fromJS({
-  filter: 'All',
-  todos: [
-    {id: 1, description: 'A todo', completed: true},
-    {id: 2, description: 'Another todo', editing: true},
-    {id: 3, description: 'Yet another todo'},
-  ]
-});
-
-var states = [];
-window.undo = undo;
-function undo() {
-  if (states.length == 1) return;
-  states.pop();
-  var prevState = states.pop();
-  render(prevState);
-}
-
-function render(state) {
-  states.push(state);
-  var component = TodosApp({
-    state: state.cursor(render)
-  });
-  React.renderComponent(component, root);
+function App() {
+  return Routes(null,
+    Route({name: 'all', handler: TodosApp, path: '/', filter: undefined}),
+    Route({name: 'completed', handler: TodosApp, path: '/completed', filter: 'completed'}),
+    Route({name: 'active', handler: TodosApp, path: '/active', filter: 'active'})
+  );
 }
 
 var root = document.getElementById('todoapp');
-render(state);
+React.renderComponent(App(), root);

@@ -1,11 +1,11 @@
-var React = require('react/addons');
+var React = require('react');
 var D = React.DOM;
-var cx = React.addons.classSet;
+var cx = require('react/lib/cx');
+var Link = require('react-router').Link;
 
 module.exports = React.createClass({
   render: function() {
     var todos = this.props.state.get('todos');
-    var currentFilter = this.props.state.get('filter');
     var completedTodosCount = todos.filter(function(todo) {
       return todo.get('completed') === true;
     }).count();
@@ -19,13 +19,13 @@ module.exports = React.createClass({
       ),
       D.ul({id: 'filters'},
         D.li({},
-          D.a({className: cx({selected: currentFilter === 'All'}), href: '#/', onClick: this.handleFilter('All')}, 'All')
+          Link({to: 'all', className: cx({selected: !this.props.filter})}, 'All')
         ),
         D.li({},
-          D.a({className: cx({selected: currentFilter === 'Active'}), href: '#/active', onClick: this.handleFilter('Active')}, 'Active')
+          Link({to: 'active', className: cx({selected: this.props.filter === 'active'})}, 'Active')
         ),
         D.li({},
-          D.a({className: cx({selected: currentFilter === 'Completed'}), href: '#/', onClick: this.handleFilter('Completed')}, 'Completed')
+          Link({to: 'completed', className: cx({selected: this.props.filter === 'completed'})}, 'Completed')
         )
       ),
       completedTodosCount > 0
@@ -40,15 +40,5 @@ module.exports = React.createClass({
         return !todo.get('completed');
       }).toVector();
     });
-  },
-
-  handleFilter: function(filter) {
-    return function(ev) {
-      ev.preventDefault();
-
-      this.props.state.update(function(state) {
-        return state.set('filter', filter);
-      });
-    }.bind(this);
   }
 });

@@ -1,14 +1,14 @@
-var React = require('react/addons');
+var React = require('react');
 var D = React.DOM;
 var TodoRow = require('./todo_row');
 
 function filterFn(filter) {
   switch(filter) {
-    case 'Active':
+    case 'active':
       return function(todo) { return !todo.get('completed'); }
-    case 'Completed':
+    case 'completed':
       return function(todo) { return todo.get('completed'); }
-    case 'All':
+    case undefined:
       return function(todo) { return true; }
     default:
       throw new Error('Unknown filter: ' + filter);

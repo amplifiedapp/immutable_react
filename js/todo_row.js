@@ -1,6 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
 var D = React.DOM;
-var cx = React.addons.classSet;
+var cx = require('react/lib/cx');
 
 module.exports = React.createClass({
   render: function() {
@@ -11,7 +11,7 @@ module.exports = React.createClass({
     });
     return D.li({className: classes},
       D.div({className: 'view'},
-        D.input({className: 'toggle', type: 'checkbox', checked: todo.completed, onChange: this.handleCheck}),
+        D.input({className: 'toggle', type: 'checkbox', checked: todo.completed || false, onChange: this.handleCheck}),
         D.label({onDoubleClick: this.handleDoubleClick}, todo.description),
         D.button({className: 'destroy', onClick: this.handleDestroy})
       ),
